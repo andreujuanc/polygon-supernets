@@ -1,5 +1,7 @@
 chainId=$1
 
+# TODO: --validators "/ip4/10.1.1.11/tcp/30301/p2p/$(polygon-edge polybft-secrets --insecure --output --data-dir data1 --json | jq -r .[0].node_id)":$(polygon-edge polybft-secrets --insecure --output --data-dir data1 --json | jq -r .[0].address):$(polygon-edge polybft-secrets --insecure --output --data-dir data1 --json | jq -r .[0].bls_pubkey):$(polygon-edge polybft-secrets --insecure --output --data-dir data1 --json | jq -r .[0].bls_signature)
+
 docker run \
     --rm -it \
     -v $PWD/chain:/chain \
