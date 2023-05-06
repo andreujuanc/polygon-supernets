@@ -1,0 +1,95 @@
+version: "3.9"
+services:
+
+  node-1:
+    image: 0xpolygon/polygon-edge:stable
+    working_dir: /chain
+    entrypoint: []
+    command: sh "/chain/client/start.sh" 1 
+    volumes:
+      - ./chain/genesis.json:/chain/genesis.json
+      - ./chain/manifest.json:/chain/manifest.json
+      - ./chain/data-1:/chain/data
+      - ./client:/chain/client
+    networks:
+      - polygon-network-v2
+    expose:
+      - 5001
+      - 30001
+      - 30301
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  node-2:
+    image: 0xpolygon/polygon-edge:stable
+    working_dir: /chain
+    entrypoint: []
+    command: sh "/chain/client/start.sh" 2
+    volumes:
+      - ./chain/genesis.json:/chain/genesis.json
+      - ./chain/manifest.json:/chain/manifest.json
+      - ./chain/data-2:/chain/data
+      - ./client:/chain/client
+    networks:
+      - polygon-network-v2
+    expose:
+      - 5001
+      - 30001
+      - 30301
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  node-3:
+    image: 0xpolygon/polygon-edge:stable
+    working_dir: /chain
+    entrypoint: []
+    command: sh "/chain/client/start.sh" 3
+    volumes:
+      - ./chain/genesis.json:/chain/genesis.json
+      - ./chain/manifest.json:/chain/manifest.json
+      - ./chain/data-3:/chain/data
+      - ./client:/chain/client
+    networks:
+      - polygon-network-v2
+    expose:
+      - 5001
+      - 30001
+      - 30301
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  node-4:
+    image: 0xpolygon/polygon-edge:stable
+    working_dir: /chain
+    entrypoint: []
+    command: sh "/chain/client/start.sh" 4
+    volumes:
+      - ./chain/genesis.json:/chain/genesis.json
+      - ./chain/manifest.json:/chain/manifest.json
+      - ./chain/data-4:/chain/data
+      - ./client:/chain/client
+    networks:
+      - polygon-network-v2
+    expose:
+      - 5001
+      - 30001
+      - 30301
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./lb/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - polygon-network-v2
+    depends_on:
+      - node-3
+    ports:
+      - "12345:8545"
+
+networks:
+  polygon-network-v2:
+
+
