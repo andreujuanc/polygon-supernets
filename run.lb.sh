@@ -1,0 +1,1 @@
+docker-compose -f docker-compose.lb.yaml down && docker-compose -f docker-compose.lb.yaml up

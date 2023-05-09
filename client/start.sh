@@ -10,4 +10,4 @@ polygon-edge server \
     --libp2p 0.0.0.0:30001 \
     --jsonrpc 0.0.0.0:5002 \
     --seal \
-    --log-level DEBUG
+    --log-level INFO

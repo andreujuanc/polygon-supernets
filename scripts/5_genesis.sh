@@ -4,10 +4,13 @@ premine=$2
 NODE_1=$(docker run --rm -it -v $PWD/chain:/chain 0xpolygon/polygon-edge:stable polybft-secrets --insecure --output --data-dir /chain/data-1 --json | jq -r .[0].node_id)
 NODE_2=$(docker run --rm -it -v $PWD/chain:/chain 0xpolygon/polygon-edge:stable polybft-secrets --insecure --output --data-dir /chain/data-2 --json | jq -r .[0].node_id)
 
+STATE_SENDER_ADDRESS=$(sudo jq .rootchain.stateSenderAddress -r ./chain/manifest.json)
+echo got state sender: $STATE_SENDER_ADDRESS
+
 docker run --rm -it -v $PWD/chain:/chain 0xpolygon/polygon-edge:stable \
     genesis \
     --block-gas-limit 10000000 \
-    --epoch-size 10 \
+    --epoch-size 30 \
     --chain-id $chainId \
     --mintable-native-token \
     --consensus polybft \
@@ -16,10 +19,14 @@ docker run --rm -it -v $PWD/chain:/chain 0xpolygon/polygon-edge:stable \
     --dir /chain/genesis.json \
     --bootnode /dns4/node-1/tcp/30001/p2p/$NODE_1 \
     --bootnode /dns4/node-2/tcp/30001/p2p/$NODE_2 \
-    --bridge-json-rpc https://matic-mumbai.chainstacklabs.com
+    --bridge-json-rpc https://matic-mumbai.chainstacklabs.com \
+    --name eldorado-chain \
+    --tracker-start-blocks $STATE_SENDER_ADDRESS:1 \
+    --block-time "10s"
     #--bridge-json-rpc http://127.0.0.1:8545 \
     # --reward-wallet 0x0000000000000000000000000000000000000000
 
+echo "Predicate Address $(sudo jq .rootchain.rootERC20PredicateAddress -r ./chain/manifest.json)"
 
 #       --block-gas-limit uint                               the maximum amount of gas used by all transactions in a block (default 5242880)
 #       --block-time duration                                the predefined period which determines block creation frequency (default 2s)

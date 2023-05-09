@@ -1,0 +1,1 @@
+docker-compose -f docker-compose.blockscout.yaml down && docker-compose -f docker-compose.blockscout.yaml up
