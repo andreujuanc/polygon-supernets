@@ -2,7 +2,7 @@ receiver=$1
 senderKey=$2
 token=$3
 
-PREDICATE_ADDRESS=$(sudo jq .rootchain.rootERC20PredicateAddress -r ./chain/manifest.json)
+PREDICATE_ADDRESS=$(sudo jq .params.engine.polybft.bridge.erc20PredicateAddress -r ./chain/genesis.json)
 
 echo "Predicate $PREDICATE_ADDRESS"
 echo "Root Token $token"
