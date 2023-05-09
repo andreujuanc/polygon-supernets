@@ -1,0 +1,26 @@
+adminKey=$1
+rootchainToken=$2
+
+docker run \
+    --rm -it \
+    -v $PWD/chain:/chain \
+    0xpolygon/polygon-edge:stable \
+    rootchain fund \
+    --amount 50000000000000000 \
+    --data-dir /chain/data-1 \
+    --json-rpc https://matic-mumbai.chainstacklabs.com \
+    --mint \
+    --native-root-token $adminKey \
+    --private-key $rootchainToken
+
+
+
+# Flags:
+#       --amount string              tokens amount which is funded to validator on a root chain
+#       --config string              the path to the SecretsManager config file, if omitted, the local FS secrets manager is used
+#       --data-dir string            the directory for the Polygon Edge data if the local FS is used
+#   -h, --help                       help for fund
+#       --json-rpc string            the rootchain JSON RPC endpoint (default "http://127.0.0.1:8545")
+#       --mint                       indicates if root token deployer should mint root tokens to given validators
+#       --native-root-token string   address of native root token
+#       --private-key string         hex-encoded private key of the account which executes rootchain commands

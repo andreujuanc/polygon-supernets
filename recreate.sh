@@ -11,7 +11,6 @@ sudo rm -rf ./blockscout-db-data
 
 ./scripts/0_docker.sh
 ./scripts/1_init.sh $chainId
-./scripts/3_manifest.sh $chainId
-./scripts/4_contracts.sh $adminKey $rootchainToken
-./scripts/5_genesis.sh $chainId $premine
-
+./scripts/4_genesis.sh $chainId $premine $address
+./scripts/6_contracts.sh $adminKey $rootchainToken
+# ./scripts/7_fund.sh $adminKey $rootchainToken

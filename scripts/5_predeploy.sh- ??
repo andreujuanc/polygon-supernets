@@ -1,0 +1,23 @@
+chainId=$1
+
+# TODO: --validators "/ip4/10.1.1.11/tcp/30301/p2p/$(polygon-edge polybft-secrets --insecure --output --data-dir data1 --json | jq -r .[0].node_id)":$(polygon-edge polybft-secrets --insecure --output --data-dir data1 --json | jq -r .[0].address):$(polygon-edge polybft-secrets --insecure --output --data-dir data1 --json | jq -r .[0].bls_pubkey):$(polygon-edge polybft-secrets --insecure --output --data-dir data1 --json | jq -r .[0].bls_signature)
+
+docker run --rm -it  -v $PWD/chain:/chain 0xpolygon/polygon-edge:stable \
+    genesis predeploy --help \
+    --artifacts-path /chain/artifacts.json \
+    --chain /chain/genesis.json \
+    --predeploy-address 0x0000000000000000000000000000000000001100
+
+    #  \
+    # --chain-id $chainId \
+    # --validators-path /chain \
+    # --validators-prefix data- \
+    # --path /chain/manifest.json \
+    # --premine-validators 100
+
+# Flags:
+#       --artifacts-path string          the path to the contract artifacts JSON
+#       --chain string                   the genesis file to update (default "./genesis.json")
+#       --constructor-args stringArray   the constructor arguments, if any
+#   -h, --help                           help for predeploy
+#       --predeploy-address string       the address to predeploy to. Must be >= 0x0000000000000000000000000000000000001100 (default "0x0000000000000000000000000000000000001100")
