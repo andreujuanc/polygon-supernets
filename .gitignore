@@ -2,5 +2,4 @@ chain
 blockscout-db-data
 redis-data
 logs
-*.env
 docker-compose.stack.yaml
